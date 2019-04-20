@@ -13,7 +13,6 @@ def generate_permutations(keyword, wordlist):
         "{keyword}.{permutation}",
         "{permutation}.{keyword}",
         "{keyword}",
-        "{permutation}",
     ]
 
     for word in wordlist:
