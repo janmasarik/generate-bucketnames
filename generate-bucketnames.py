@@ -24,17 +24,18 @@ def generate_permutations(keyword, wordlist):
 
 @click.command()
 @click.option("-d", "--domains", help="List of domains")
-@click.option("-sd", "--domain", help="Single domain name")
+@click.option("-sd", "--domain", help="Name of company to generate permutations for")
 @click.option(
     "-w", "--wordlist", help="List of possible bucket names like admin, dev, logs"
 )
 @click.option("-o", "--output", help="Output file name")
 def main(domains, domain, wordlist, output):
     if domain:
-        domains = [domain]
+        domains = set([domain,domain.split(".")[0]])
     else:
         with open(domains) as domains_file:
-            domains = domains_file.read().splitlines()
+            raw_domains = domains_file.read().splitlines()
+            domains = set(raw_domains + (d.split(".")[0] for d in raw_domains))
 
     with open(wordlist) as wordlist_file:
         wordlist = wordlist_file.read().splitlines()
